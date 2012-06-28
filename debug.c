@@ -5,5 +5,5 @@
 void dbg_msg(char* msg)
 {
 	char* output = strconc("[DEBUG] ", msg);
-    k_print_str_p(output);
+    k_dbg_print_str_p(output);
 }

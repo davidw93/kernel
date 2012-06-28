@@ -64,6 +64,37 @@ int k_print_str_p(char* msg)
     return 0;
 }
 
+int k_dbg_print_str_p(char* msg)
+{
+    if (row > 80 || col > 25) return -1;
+
+    int x = row;
+    int y = col*2;
+    int charcount = 0;
+    
+    unsigned char *vram = (char *)0xB8000 + x;
+
+    while (*msg != '\0')
+    {   
+        int y_pos = CHARS_PER_LINE * y;
+        vram[(x++)+y_pos] = *msg++;
+        vram[x+y_pos] = 0x04;
+        x++;
+        charcount++;
+        if(y > 2)
+        {
+            int cursy = CHARS_PER_LINE * (y-(y/2)+1);
+            move_cursor(cursy, charcount);
+        }
+        else
+        {
+            move_cursor(y_pos, charcount);
+        }
+    } 
+    col++;
+    return 0;
+}
+
 void move_cursor(int y, int charcount)
 {
 	unsigned short cursLoc = y - (CHARS_PER_LINE - charcount);
