@@ -3,6 +3,7 @@
 #include "boot.h"
 #include "cpu.h"
 #include "kscreen.h"
+#include "debug.h"
 
 void kmain()
 {
