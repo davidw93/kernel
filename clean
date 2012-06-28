@@ -5,10 +5,10 @@ rm boot.o
 rm common.o
 rm cpu.o
 rm debug.o
+rm descriptor_tables.o
+rm gdt.o
+rm interrupts.o
+rm isr.o
 rm kernel.o
 rm kscreen.o
-rm descriptor_tables.o
 rm loader.o
-rm gdt.o
-rm isr.o
-rm interrupts.o
