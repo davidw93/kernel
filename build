@@ -1,0 +1,20 @@
+#!/bin/bash
+
+export TARGET=i586-elf
+export __CFLAGS="-Wall -nostdlib -nostartfiles -nodefaultlibs"
+
+echo "[STARTING BUILD]"
+nasm -f elf -o loader.o loader.s
+nasm -f elf -o gdt.o gdt.s
+nasm -f elf -o interrupts.o interrupts.s
+export PATH=/usr/local/cross/bin
+$TARGET-gcc $__CFLAGS -c boot.c -o boot.o
+$TARGET-gcc $__CFLAGS -c cpu.c -o cpu.o
+$TARGET-gcc $_CFLAGS -c common.c -o common.o
+$TARGET-gcc $_CFLAGS -c debug.c -o debug.o
+$TARGET-gcc $_CFLAGS -c descriptor_tables.c -o descriptor_tables.o
+$TARGET-gcc $__CFLAGS -c isr.c -o isr.o
+$TARGET-gcc $__CFLAGS -c kernel.c -o kernel.o
+$TARGET-gcc $_CFLAGS -c kscreen.c -o kscreen.o
+$TARGET-ld -T linker.ld -o kernel.bin loader.o gdt.o interrupts.o kernel.o boot.o cpu.o kscreen.o common.o debug.o isr.o descriptor_tables.o
+echo "[BUILD DONE]"
