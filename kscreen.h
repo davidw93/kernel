@@ -1,9 +1,11 @@
 #ifndef __KSCREEN_H
 #define __KSCREEN_H
 
+void kscrn_setcolour(unsigned char col);
+void kscrn_defaultcol();
 void k_clear_screen();
-void k_print_str(char* msg);
-int k_print_str_p(char* msg);
-void k_dbg_out(char c);
-
+void kscrn_write(char *c);
+void kscrn_write_hex(unsigned int n);
+void kscrn_write_dec(unsigned int n);
+void kscrn_newline();
 #endif

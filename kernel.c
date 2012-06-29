@@ -12,7 +12,7 @@ void kmain()
  
     if ( magic != 0x2BADB002 )
     {
-        k_print_str("Error occurred while booting");
+        kscrn_write("Error occurred while booting");
         return;
     }
 
@@ -26,6 +26,7 @@ void announce()
 {
     init_descriptor_tables();
     k_clear_screen();
-    k_print_str_p("David's basic 'kernel'");
+    kscrn_write("David's basic 'kernel' \n");
     asm volatile("int $0x3");
+    kscrn_write("And we continue");
 }
