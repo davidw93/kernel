@@ -1,5 +1,6 @@
 #include "common.h"
 #include "descriptor_tables.h"
+#include "isr.h"
 
 extern void gdt_flush(unsigned int);
 extern void idt_flush(unsigned int);
@@ -8,15 +9,18 @@ static void init_idt();
 static void gdt_set_gate(int, unsigned int, unsigned int, unsigned char, unsigned char);
 static void idt_set_gate(unsigned char, unsigned int, unsigned short, unsigned char);
 
-gdt_entry_t 	gdt_entries[5];
+gdt_entry_t     gdt_entries[5];
 gdt_ptr_t		gdt_ptr;
 idt_entry_t		idt_entries[256];
 idt_ptr_t		idt_ptr;
+
+extern isr_t interrupt_handlers[];
 
 void init_descriptor_tables()
 {
 	init_gdt();
 	init_idt();
+	memoryset(&interrupt_handlers, 0, sizeof(isr_t)*256);
 }
 
 static void init_gdt()
@@ -40,6 +44,18 @@ static void init_idt()
 
 	unsigned char* size = sizeof(idt_entry_t)*256;
 	memoryset(&idt_entries, 0, size);
+
+	//Remapping the IRQ table
+    outb(0x20, 0x11);
+    outb(0xA0, 0x11);
+    outb(0x21, 0x20);
+    outb(0xA1, 0x28);
+    outb(0x21, 0x04);
+    outb(0xA1, 0x02);
+    outb(0x21, 0x01);
+    outb(0xA1, 0x01);
+    outb(0x21, 0x0);
+    outb(0xA1, 0x0);
 
 	idt_set_gate(0, (unsigned int)isr0, 0x08, 0x8E);
 	idt_set_gate(1, (unsigned int)isr1, 0x08, 0x8E);
@@ -73,6 +89,22 @@ static void init_idt()
 	idt_set_gate(29, (unsigned int)isr29, 0x08, 0x8E);
 	idt_set_gate(30, (unsigned int)isr30, 0x08, 0x8E);
 	idt_set_gate(31, (unsigned int)isr31, 0x08, 0x8E);
+	idt_set_gate(32, (unsigned int)irq0, 0x08, 0x8E);
+	idt_set_gate(33, (unsigned int)irq1, 0x08, 0x8E);
+	idt_set_gate(34, (unsigned int)irq2, 0x08, 0x8E);
+	idt_set_gate(35, (unsigned int)irq3, 0x08, 0x8E);
+	idt_set_gate(36, (unsigned int)irq4, 0x08, 0x8E);
+	idt_set_gate(37, (unsigned int)irq5, 0x08, 0x8E);
+	idt_set_gate(38, (unsigned int)irq6, 0x08, 0x8E);
+	idt_set_gate(39, (unsigned int)irq7, 0x08, 0x8E);
+	idt_set_gate(40, (unsigned int)irq8, 0x08, 0x8E);
+	idt_set_gate(41, (unsigned int)irq9, 0x08, 0x8E);
+	idt_set_gate(42, (unsigned int)irq10, 0x08, 0x8E);
+	idt_set_gate(43, (unsigned int)irq11, 0x08, 0x8E);
+	idt_set_gate(44, (unsigned int)irq12, 0x08, 0x8E);
+	idt_set_gate(45, (unsigned int)irq13, 0x08, 0x8E);
+	idt_set_gate(46, (unsigned int)irq14, 0x08, 0x8E);
+	idt_set_gate(47, (unsigned int)irq15, 0x08, 0x8E);
 
 	idt_flush((unsigned int)&idt_ptr);
 }

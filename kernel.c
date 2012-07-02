@@ -4,11 +4,11 @@
 #include "cpu.h"
 #include "kscreen.h"
 #include "debug.h"
+#include "timer.h"
 
 void kmain()
 {
     init_descriptor_tables();
-    
     announce();
 
 }
@@ -17,7 +17,6 @@ void announce()
 {
     k_clear_screen();
     kscrn_write("Hello, world!\n");
-    asm volatile("int $0x00");
-    kscrn_write("Test");
-    asm volatile("int $0x03");
+    asm volatile("sti");
+    init_timer(50);
 }

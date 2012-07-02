@@ -12,3 +12,4 @@ rm isr.o
 rm kernel.o
 rm kscreen.o
 rm loader.o
+rm timer.o

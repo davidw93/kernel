@@ -1,0 +1,12 @@
+** NOTES **
+
+The PIC(programmable interrupt controller) is actually just an 8-1
+multiplexer. 2 of them are daisy chained together to provide us with
+15 programmable interrupts.
+Each PIC has a command port and data port:
+	Master PIC - command 	=	0x0020
+	Master PIC - data 		=	0x0021
+	Slave PIC  - command 	= 	0x00A0
+	Salve PIC  - data		= 	0x00A1
+
+In protected mode the IRQs 0 -> 7 conflict with the CPU exceptions which is reserved by INtel up until 0x1F. It's also really hard to tell the difference between an IRQ or a software error. This is why we change the PIC's offsets (known as remapping) so the IRQ's use non-reserved vectors.

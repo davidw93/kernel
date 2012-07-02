@@ -17,5 +17,6 @@ $TARGET-gcc $_CFLAGS -c descriptor_tables.c -o descriptor_tables.o
 $TARGET-gcc $__CFLAGS -c isr.c -o isr.o
 $TARGET-gcc $__CFLAGS -c kernel.c -o kernel.o
 $TARGET-gcc $_CFLAGS -c kscreen.c -o kscreen.o
-$TARGET-ld -T linker.ld -o kernel.bin gdt.o interrupts.o loader.o boot.o common.o cpu.o debug.o descriptor_tables.o isr.o kernel.o kscreen.o
+$TARGET-gcc $_CFLAGS -c timer.c -o timer.o
+$TARGET-ld -T linker.ld -o kernel.bin gdt.o interrupts.o loader.o boot.o common.o cpu.o debug.o descriptor_tables.o isr.o kernel.o kscreen.o timer.o
 echo "[BUILD DONE]"
