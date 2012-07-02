@@ -1,7 +1,9 @@
 global loader                           ; making entry point visible to linker
 global magic                            ; we will use this in kmain
 global mbd                              ; we will use this in kmain
- 
+
+[BITS 32]
+
 extern kmain                            ; kmain is defined in kmain.cpp
  
 ; setting up the Multiboot header - see GRUB docs for details
@@ -22,13 +24,9 @@ align 4
 STACKSIZE equ 0x4000                    ; that's 16k.
  
 loader:
-    mov  esp, stack + STACKSIZE         ; set up the stack
-    mov  [magic], eax                   ; Multiboot magic number
-    mov  [mbd], ebx                     ; Multiboot info structure
- 
+    
+    push    ebx
     call kmain                          ; call kernel proper
- 
-    cli
 .hang:
     hlt                                 ; halt machine should kernel return
     jmp  .hang

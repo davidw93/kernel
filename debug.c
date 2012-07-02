@@ -7,8 +7,7 @@ void dbg_msg(char* msg)
 	char *output = strconc("[DEBUG] ", msg);
 	kscrn_setcolour(0x04);
 	kscrn_write(output);
-	kscrn_newline();
-	kscrn_defaultcol();
+	format();
 }
 void dbg_isr_msg(char* msg, unsigned int reg)
 {
@@ -16,6 +15,11 @@ void dbg_isr_msg(char* msg, unsigned int reg)
 	kscrn_setcolour(0x04);
     kscrn_write(output);
     kscrn_write_hex(reg);
-    kscrn_newline();
+    format();
+}
+
+void format()
+{
+	kscrn_newline();
     kscrn_defaultcol();
 }
