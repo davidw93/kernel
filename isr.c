@@ -9,7 +9,7 @@ unsigned char *exception_messages[] =
 	"Debug",
 	"Non Maskable Interrupt",
 	"Breakpoint",
-	"Detected Overflow",
+	"Into Detected Overflow",
 	"Out of Bounds",
 	"Invalid Opcode",
 	"No Coprocessor",
