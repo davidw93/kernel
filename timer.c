@@ -1,6 +1,7 @@
 #include "timer.h"
 #include "isr.h"
 #include "kscreen.h"
+#include "common.h"
 
 unsigned int tick = 0;
 

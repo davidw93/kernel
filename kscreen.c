@@ -54,9 +54,6 @@ void scroll()
 
 void kscrn_put(char c)
 {
-    unsigned char backColour = 0;
-    unsigned char foreColour = 15;
-
     unsigned short attribute = TEXT_COLOUR << 8;
     unsigned short *location;
 

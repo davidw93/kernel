@@ -5,13 +5,15 @@ CFLAGS=-Wall -nostdlib -nostartfiles -nodefaultlibs -c
 LDFLAGS=-T linker.ld
 SOURCES=boot.c common.c cpu.c debug.c descriptor_tables.c isr.c kernel.c kscreen.c timer.c
 OBJECTS=$(SOURCES:.c=.o)
+ASM_SOURCES=interrupts.s loader.s gdt.s
+ASM_OBJECTS=$(ASM_SOURCES:.s=.o)
 
-all: asm $(OBJECTS) kernel bootimage
+all: asm kernel bootimage
 
-asm:
-	nasm -f elf -o gdt.o gdt.s
-	nasm -f elf -o interrupts.o interrupts.s
-	nasm -f elf -o loader.o loader.s
+asm: $(ASM_OBJECTS)
+	
+.s.o:
+	nasm -f elf $< -o $@
 	
 kernel: $(OBJECTS) 
 	$(LD) $(LDFLAGS) -o kernel.bin loader.o interrupts.o gdt.o  $(OBJECTS) 
@@ -25,8 +27,7 @@ bootimage:
 run-emu:
 	qemu-system-i386 -monitor stdio -fda floppy.img -kernel kernel.bin
 
-gitclean:
-	rm *.o
+clean:
+	rm $(OBJECTS) $(ASM_OBJECTS)
 	rm kernel.bin
 	rm floppy.img
-	rm *~
