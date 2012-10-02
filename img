@@ -1,3 +1,0 @@
-#!/bin/bash
-echo "[BUILDING BOOT IMAGE]"
-cat misc/stage1 misc/stage2 misc/pad kernel.bin > floppy.img

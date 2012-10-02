@@ -1,4 +1,0 @@
-./clean
-./build
-./img
-./qemu

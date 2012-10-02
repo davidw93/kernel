@@ -1,3 +1,0 @@
-#!/bin/bash
-echo "[LAUNCHING EMULATOR]"
-qemu-system-i386 -monitor stdio -fda floppy.img -kernel kernel.bin
