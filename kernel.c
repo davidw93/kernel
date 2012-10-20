@@ -25,7 +25,7 @@ void kmain()
 void announce() 
 {
     init_descriptor_tables();
-    k_clear_screen();
+    kscrn_clear();
     kscrn_write("David's basic 'kernel' \n");
     asm volatile("int $0x3");
     kscrn_write("And we continue");

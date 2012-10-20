@@ -99,7 +99,7 @@ void kscrn_put(char c)
 
 }
 
-void k_clear_screen()
+void kscrn_clear()
 {
     unsigned short blank = 0x20 | (TEXT_COLOUR << 8);
 
