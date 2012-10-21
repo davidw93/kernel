@@ -11,4 +11,5 @@ inline int cpuid_str(int code, unsigned int result[4]);
 
 int irq_enabled();
 int irq_init();
+
 #endif

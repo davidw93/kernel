@@ -10,12 +10,11 @@ void kmain()
 {
     init_descriptor_tables();
     announce();
-
 }
 
 void announce()
 {
-    k_clear_screen();
+    kscrn_clear();
     kscrn_write("Hello, world!\n");
     asm volatile("sti");
     init_timer(50);

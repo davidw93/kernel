@@ -1,3 +1,6 @@
+#ifndef __ISR_H
+#define __ISR_H
+
 #define IRQ0 32
 #define IRQ1 33
 #define IRQ2 34
@@ -25,3 +28,5 @@ typedef struct registers
 
 typedef void(*isr_t)(registers_t);
 void register_interrupt_handler(unsigned char n, isr_t handler);
+
+#endif

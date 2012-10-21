@@ -99,7 +99,7 @@ void kscrn_put(char c)
 
 }
 
-void k_clear_screen()
+void kscrn_clear()
 {
     unsigned short blank = 0x20 | (TEXT_COLOUR << 8);
 
@@ -114,7 +114,7 @@ void k_clear_screen()
     move_cursor();
 }
 
-void kscrn_write(char *c)
+void kscrn_write(const char *c)
 {
     int i = 0;
     while (c[i])
