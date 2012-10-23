@@ -17,8 +17,9 @@ inline int irq_enabled()
     asm volatile("pushf; popl %0" : "=g"(x));
     return x & (1 << 9);
 }
-
+/*
 int irq_init()
 {
 
 }
+*/

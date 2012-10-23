@@ -20,7 +20,8 @@ void init_descriptor_tables()
 {
 	init_gdt();
 	init_idt();
-	memoryset(&interrupt_handlers, 0, sizeof(isr_t)*256);
+	unsigned char* interrupt_handlers_char = (unsigned char *)&interrupt_handlers;
+	memoryset(interrupt_handlers_char, 0, sizeof(isr_t)*256);
 }
 
 static void init_gdt()
@@ -42,8 +43,9 @@ static void init_idt()
 	idt_ptr.limit	= sizeof(idt_entry_t) * 256 - 1;
 	idt_ptr.base    = (unsigned int)&idt_entries;
 
-	unsigned char* size = sizeof(idt_entry_t)*256;
-	memoryset(&idt_entries, 0, size);
+	unsigned int size = sizeof(idt_entry_t)*256;
+	unsigned char* idt_entries_char = (unsigned char *)&idt_entries;
+	memoryset(idt_entries_char, 0, size);
 
 	//Remapping the IRQ table
     outb(0x20, 0x11);

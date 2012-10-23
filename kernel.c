@@ -18,7 +18,7 @@ void announce()
     kscrn_write("Hello, world!\n");
     
     kscrn_write("End of kernel: ");
-    kscrn_write_hex(&kernel_end);
+    kscrn_write_hex((unsigned int) &kernel_end);
     
     asm volatile("sti");
     init_timer(50);

@@ -5,7 +5,7 @@
 
 isr_t interrupt_handlers[256];
 
-unsigned char *exception_messages[] =
+const char *exception_messages[] =
 {
 	"Division By Zero",
 	"Debug",

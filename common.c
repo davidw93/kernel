@@ -32,11 +32,12 @@ void memoryset(unsigned char *dest, unsigned char val, unsigned int len)
     for ( ; len != 0; len--) *temp++ = val;
 }
 
-char* strconc(char *str1, const char *append)
+char* strconc(const char *str1, const char *append)
 {
-	char *output = str1;
+	unsigned char *str1_readable = (unsigned char *)str1;
+	char *output = str1_readable;
 
-	for(; *str1; ++str1);
-	while((*str1++ = *append++) != 0);
+	for(; *str1_readable; ++str1_readable);
+	while((*str1_readable++ = *append++) != 0);
     return(output);
 }
